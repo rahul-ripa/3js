@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body { margin: 0; }
+      canvas { display: block; }
+    </style>
+  </head>
+  <body>
+    <script src="https://threejs.org/build/three.js"></script>
+    <script src="https://threejs.org/examples/jsm/loaders/GLTFLoader.js"></script>
+    <script>
+      var scene, camera, renderer;
+      var loader = new THREE.GLTFLoader();
+
+      function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+      }
+
+      function loadModel() {
+        loader.load('https://057e57b8df0e505687a1bcd9348f7315.cdn.bubble.io/f1690547677473x723106074014521200/link.gltf', function (gltf) {
+          scene.add(gltf.scene);
+        }, undefined, function (error) {
+          console.error(error);
+        });
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+
+      init();
+      loadModel();
+      animate();
+    </script>
+  </body>
+</html>
